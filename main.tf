@@ -151,7 +151,7 @@ resource "aws_launch_configuration" "rabbitmq" {
   image_id             = "${data.aws_ami_ids.ami.ids[0]}"
   instance_type        = "${var.instance_type}"
   key_name             = "${var.ssh_key_name}"
-  security_groups      = ["${aws_security_group.rabbitmq_nodes.id}"]
+  security_groups      = ["${aws_security_group.rabbitmq_nodes.id}","${var.ssh_security_group_ids}"]
   iam_instance_profile = "${aws_iam_instance_profile.profile.id}"
   user_data            = "${data.template_file.cloud-init.rendered}"
 }
@@ -203,7 +203,7 @@ resource "aws_elb" "elb" {
   subnets               = ["${var.subnet_ids}"]
   idle_timeout          = 3600
   internal              = true
-  security_groups       = ["${aws_security_group.rabbitmq_elb.id}"]
+  security_groups       = ["${aws_security_group.rabbitmq_elb.id}","${var.elb_security_group_ids}"]
 
   tags {
     Name = "rabbitmq"
