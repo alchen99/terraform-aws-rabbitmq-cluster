@@ -17,6 +17,9 @@ variable "elb_security_group_ids" {
   description = "Security groups which should have access to ELB (amqp + http ports)."
   type = "list"
 }
+variable "elb_additional_group_ids" {
+  description = "Additional security groups which should have access to ELB (amqp + http ports)."
+}
 variable "admin_password" {
   description = "Password for 'admin' user"
   default = "password"
